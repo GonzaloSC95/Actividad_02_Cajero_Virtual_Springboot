@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <link
+      rel="shortcut icon"
+      th:href="@{/img/favicon.png}"
+      type="image/x-icon"
+   />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Cajero Virtual</title>
+   <link rel="stylesheet" th:href="@{/css/style.css}" />
+<body>
+   <div class="login-container">
+      <div class="login-container-content">
+         <div id="login-title">
+            <h1>Cajero virtual</h1>
+            <div><img th:src="@{/img/favicon.png}"><img></div>
+         </vdiv>
+         <form th:action="@{/index}" method="post">
+         <div class="input-group">
+            <div
+						th:if="${mensajeKo}"
+						class="flash-message-ko"
+						th:text="'❌&nbsp;&nbsp;' + ${mensajeKo}"
+					></div>
+            <input type="text" name="IdCuenta" placeholder="Número de cuenta" required>
+         </div>
+         <button type="submit" class="btn">Enviar</button>
+         </form>
+      </div>
+   </div>
+</body>
+</html>

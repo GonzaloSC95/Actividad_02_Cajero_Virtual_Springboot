@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<link
+			rel="shortcut icon"
+			th:href="@{/img/favicon.png}"
+			type="image/x-icon"
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Administración de Excursiones</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}" />
+	</head>
+	<body>
+		<div class="container">
+			<!-- Panel de Administración -->
+			<div class="panel">
+				<h2
+					th:text="'Todos los Movimientos de la cuenta: ' + ${objCuenta.IdCuenta}"
+				></h2>
+				<div class="button-group">
+					<button th:onclick="'location.href=\'' + @{/index} + '\''">◀︎</button>
+					<button
+						th:onclick="'location.href=\'' + @{/movimientos/ingresar} + '\''"
+					>
+						Ingresar
+					</button>
+					<button
+						th:onclick="'location.href=\'' + @{/movimientos/extraer} + '\''"
+					>
+						Extraer
+					</button>
+					<button th:onclick="'location.href=\'' + @{/exit} + '\''">
+						Salir
+					</button>
+				</div>
+			</div>
+
+			<!-- Tabla de Movimientos -->
+			<table>
+				<thead>
+					<tr>
+						<th>Fecha</th>
+						<th>Importe</th>
+						<th>Tipo de operación</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Datos en la tabla -->
+					<tr th:each="objMovimiento : ${listaMovimientos}">
+						<td
+							th:text="${#dates.format(objMovimiento.fecha,'dd-MM-yyyy HH:mm:ss')}"
+						></td>
+						<td th:text="${objMovimiento.cantidad} + ' €'"></td>
+						<td th:text="${objMovimiento.operacion}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

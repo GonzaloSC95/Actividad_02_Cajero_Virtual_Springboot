@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<link
+			rel="shortcut icon"
+			th:href="@{/img/favicon.png}"
+			type="image/x-icon"
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cajero Virtual</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}" />
+	</head>
+	<body>
+		<div class="container">
+			<!-- Panel de Administración -->
+			<div class="panel">
+				<!-- Titulo y mensajes flash -->
+				<div>
+					<h2>Extraer Dinero</h2>
+					<!-- Mensaje Flash -->
+					<div
+						th:if="${mensajeOk}"
+						class="flash-message-ok"
+						th:text="'💸&nbsp;&nbsp;' + ${mensajeOk}"
+					></div>
+					<div
+						th:if="${mensajeKo}"
+						class="flash-message-ko"
+						th:text="'❌&nbsp;&nbsp;' + ${mensajeKo}"
+					></div>
+				</div>
+
+				<!-- Botonera de administración -->
+				<div class="button-group">
+					<button th:onclick="'location.href=\'' + @{/index} + '\''">◀︎</button>
+					<button
+						th:onclick="'location.href=\'' + @{/movimientos/ingresar} + '\''"
+					>
+						Ingresar
+					</button>
+					<button th:onclick="'location.href=\'' + @{/verMovimientos} + '\''">
+						Ver Movimientos
+					</button>
+					<button th:onclick="'location.href=\'' + @{/exit} + '\''">
+						Salir
+					</button>
+				</div>
+			</div>
+
+			<!-- Formulario de alta -->
+			<form
+				th:action="@{/movimientos/extraer}"
+				th:object="${objMovimiento}"
+				method="post"
+			>
+				<table class="detalle">
+					<thead>
+						<tr>
+							<th colspan="2" th:text="'Saldo actual: ' + ${session.objCuenta.saldo} + ' €'"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Datos en la tabla -->
+						<tr>
+							<td>Fecha del Movimiento</td>
+							<td>
+								<input type="datetime-local" th:field="*{fecha}" readonly />
+							</td>
+						</tr>
+						<tr>
+							<td>Tipo de movimiento</td>
+							<td>
+								<select disabled>
+									<option value="EXTRACCION" selected>EXTRACCION</option>
+									<option value="INGRESO">INGRESO</option>
+								</select>
+								<input type="hidden" th:field="*{operacion}" value="EXTRACCION" />
+							</td>
+						</tr>
+						<tr>
+							<td>Cantidad (€)</td>
+							<td>
+								<input
+									type="number"
+									step="0.01"
+									th:field="*{cantidad}"
+									required
+								/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="button-group">
+					<button type="submit">Extraer Dinero</button>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
