@@ -178,3 +178,11 @@ td img{
     flex-wrap: wrap;
     align-items: center;
 }
+
+/* Colores Movimientos */
+.ingreso {
+    color: #28a745;
+}
+.extraccion {
+    color: #dc3545;
+}

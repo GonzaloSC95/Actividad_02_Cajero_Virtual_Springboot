@@ -32,6 +32,7 @@ public class Cuenta implements Serializable {
 	@Column(name = "tipo_cuenta")
 	private String tipoCuenta;
 
+	// Métodos
 	public void reCalcularSaldo(Movimiento objMovimiento) {
 		if ("INGRESO".equals(objMovimiento.getOperacion())) {
 			this.saldo += objMovimiento.getCantidad();

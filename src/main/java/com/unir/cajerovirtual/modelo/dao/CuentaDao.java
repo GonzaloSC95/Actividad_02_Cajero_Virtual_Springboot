@@ -25,4 +25,7 @@ public interface CuentaDao {
 	// Total ingresos o gastos de la cuenta
 	Double TotalFromCuentaByTipoMovimiento(int idCuenta, String tipoMovimiento);
 
+	// Todas las cuentas menos la de la sesión
+	List<Cuenta> getAllCuentasNotme(int idCuenta);
+
 }

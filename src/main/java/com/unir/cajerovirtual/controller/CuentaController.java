@@ -54,7 +54,7 @@ public class CuentaController {
 			return "index";
 		} else {
 			ratt.addFlashAttribute("mensajeKo", "Nº de cuenta incorrecto");
-			return "redirect:/";
+			return "redirect:";
 		}
 	}
 

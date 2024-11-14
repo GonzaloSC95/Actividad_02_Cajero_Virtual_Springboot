@@ -56,4 +56,9 @@ public class CuentaImplJpa implements CuentaDao {
 		}
 	}
 
+	@Override
+	public List<Cuenta> getAllCuentasNotme(int idCuenta) {
+		return cuentaRepository.getAllCuentasNotme(idCuenta);
+	}
+
 }

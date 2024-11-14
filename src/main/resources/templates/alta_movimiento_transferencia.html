@@ -17,7 +17,7 @@
 			<div class="panel">
 				<!-- Titulo y mensajes flash -->
 				<div>
-					<h2>Extraer Dinero</h2>
+					<h2>Transferir Dinero</h2>
 					<!-- Mensaje Flash -->
 					<div
 						th:if="${mensajeOk}"
@@ -40,9 +40,9 @@
 						Ingresar
 					</button>
 					<button
-						th:onclick="'location.href=\'' + @{/movimientos/transferencia} + '\''"
+						th:onclick="'location.href=\'' + @{/movimientos/extraer} + '\''"
 					>
-						Transferencia
+						Extraer
 					</button>
 					<button th:onclick="'location.href=\'' + @{/verMovimientos} + '\''">
 						Ver Movimientos
@@ -55,7 +55,7 @@
 
 			<!-- Formulario de alta -->
 			<form
-				th:action="@{/movimientos/extraer}"
+				th:action="@{/movimientos/transferencia}"
 				th:object="${objMovimiento}"
 				method="post"
 			>
@@ -74,13 +74,14 @@
 							</td>
 						</tr>
 						<tr>
-							<td>Tipo de movimiento</td>
+							<td>Cuenta de destino</td>
 							<td>
-								<select disabled>
-									<option value="EXTRACCION" selected>EXTRACCION</option>
-									<option value="INGRESO">INGRESO</option>
+								<select th:field="*{cuentaDestinoId}">
+									<option th:each="objCuenta : ${listaCuentasDestino}"
+											th:value="${objCuenta.idCuenta}" 
+											th:text="${objCuenta.idCuenta} + ' - ' + ${objCuenta.tipoCuenta}">
+									</option>
 								</select>
-								<input type="hidden" th:field="*{operacion}" value="EXTRACCION" />
 							</td>
 						</tr>
 						<tr>
@@ -97,7 +98,7 @@
 					</tbody>
 				</table>
 				<div class="button-group">
-					<button type="submit">Extraer Dinero</button>
+					<button type="submit">Transferir Dinero</button>
 				</div>
 			</form>
 		</div>

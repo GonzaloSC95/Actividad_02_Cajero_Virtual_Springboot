@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,5 +43,28 @@ public class Movimiento implements Serializable {
 	private Date fecha = new Date();
 	private double cantidad;
 	private String operacion;
+
+	@Transient // Anotación para atributos no persistentes
+	private int cuentaDestinoId;
+
+	// Métodos
+	// Método para copiar los datos de un movimiento de Transferencia Ingreso
+	public void copyFromTransferenciaIngreso(Movimiento objMovimiento) {
+		this.cantidad = objMovimiento.getCantidad();
+		this.operacion = "TRANSFERENCIA INGRESO";
+		this.fecha = objMovimiento.getFecha();
+	}
+
+	// Método para copiar los datos de un movimiento de Transferencia Ingreso
+	public void copyFromTransferenciaExtraccion(Movimiento objMovimiento) {
+		this.cantidad = objMovimiento.getCantidad();
+		this.operacion = "TRANSFERENCIA EXTRACCION";
+		this.fecha = objMovimiento.getFecha();
+	}
+
+	// Método para saber si el movimiento es un ingreso
+	public boolean isIngreso() {
+		return this.operacion.contains("INGRESO");
+	}
 
 }

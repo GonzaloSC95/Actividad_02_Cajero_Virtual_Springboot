@@ -27,4 +27,8 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
 	@Query("SELECT COALESCE(SUM(m.cantidad), 0) FROM Movimiento m WHERE m.cuenta.idCuenta = :idCuenta AND m.operacion = :tipoMovimiento")
 	Double totalMovimientosFromCuentaByTipoMovimiento(@Param("idCuenta") int idCuenta,
 			@Param("tipoMovimiento") String tipoMovimiento);
+
+	// Todas las cuentas menos la de la sesión
+	@Query("SELECT c FROM Cuenta c WHERE c.idCuenta != :idCuenta")
+	List<Cuenta> getAllCuentasNotme(@Param("idCuenta") int idCuenta);
 }

@@ -30,6 +30,11 @@
 					>
 						Extraer
 					</button>
+					<button
+						th:onclick="'location.href=\'' + @{/movimientos/transferencia} + '\''"
+					>
+						Transferencia
+					</button>
 					<button th:onclick="'location.href=\'' + @{/exit} + '\''">
 						Salir
 					</button>
@@ -47,7 +52,10 @@
 				</thead>
 				<tbody>
 					<!-- Datos en la tabla -->
-					<tr th:each="objMovimiento : ${listaMovimientos}">
+					<tr
+						th:each="objMovimiento : ${listaMovimientos}"
+						th:classappend="${objMovimiento.isIngreso()} ? 'ingreso' : 'extraccion'"
+					>
 						<td
 							th:text="${#dates.format(objMovimiento.fecha,'dd-MM-yyyy HH:mm:ss')}"
 						></td>
