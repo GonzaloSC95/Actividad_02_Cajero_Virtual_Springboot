@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.unir.cajerovirtual.modelo.entidades.Prestamo;
+import com.unir.cajerovirtual.modelo.entidades.TipoCuota;
 
 @Configuration
 public class BeansConfiguracionJava {
@@ -19,7 +20,7 @@ public class BeansConfiguracionJava {
     Prestamo getCuenta() {
     	//Creación de un objeto de tipo Prestamo con el método builder de Lombok
 		Prestamo prestamo = Prestamo.builder().descripcion("Prestamo 1").cantidadPrestamo(1000)
-				.fechaPrestamo(new Date()).tasaInteresAnual(6).plazoMeses(34).tipoCuota("FIJO").estadoCd("TRAMITANDO")
+				.fechaPrestamo(new Date()).tasaInteresAnual(6).plazoMeses(34).tipoCuota(TipoCuota.FIJO).estadoCd("TRAMITANDO")
 				.build();
     	//Creación de un objeto de tipo Prestamo
     	//Prestamo prestamo = new Prestamo(3,"Prestamo 1", 1000, new Date(), 6, 34, "FIJO", null, "TRAMITANDO");

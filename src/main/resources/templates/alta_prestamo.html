@@ -131,8 +131,10 @@
 							<td>Tipo de Cuota</td>
 							<td>
 								<select th:field="*{tipoCuota}" required>
-									<option value="FIJO">FIJO</option>
-									<option value="VARIABLE">VARIABLE</option>
+									<option th:each="tipo : ${T(com.unir.cajerovirtual.modelo.entidades.TipoCuota).values()}"
+							                th:value="${tipo}"
+							                th:text="${tipo}">
+							        </option>
 								</select>
 							</td>
 						</tr>
