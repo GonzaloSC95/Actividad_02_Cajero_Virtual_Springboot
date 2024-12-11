@@ -1,6 +1,9 @@
 package com.unir.cajerovirtual.modelo.entidades;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,4 +44,20 @@ public class Cuenta implements Serializable {
 		}
 	}
 
+	public boolean isPrestamoConcedido(Prestamo objPrestamo, Movimiento objMovimiento) {
+		// Obtener la fecha actual
+		LocalDate fechaActual = LocalDate.now();
+		// Convertir la fecha de bjPrestamo a LocalDate
+		Date fechaPrestamo = objPrestamo.getFechaPrestamo();
+		LocalDate fechaPrestamoLocalDate = fechaPrestamo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		// Si la fecha actual es mayor que la fecha del préstamo
+		if (fechaActual.isAfter(fechaPrestamoLocalDate)) {
+			objMovimiento.setCuenta(objPrestamo.getCuenta());
+			objMovimiento.setCantidad(objPrestamo.getCantidadPrestamo());
+			objMovimiento.setOperacion("INGRESO");
+			reCalcularSaldo(objMovimiento);
+			return true;
+		}
+		return false;
+	}
 }

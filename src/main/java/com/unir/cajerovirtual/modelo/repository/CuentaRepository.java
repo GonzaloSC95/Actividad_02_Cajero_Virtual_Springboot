@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.unir.cajerovirtual.modelo.entidades.Cuenta;
 import com.unir.cajerovirtual.modelo.entidades.Movimiento;
+import com.unir.cajerovirtual.modelo.entidades.Prestamo;
 
 public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
 
@@ -31,4 +32,8 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
 	// Todas las cuentas menos la de la sesión
 	@Query("SELECT c FROM Cuenta c WHERE c.idCuenta != :idCuenta")
 	List<Cuenta> getAllCuentasNotme(@Param("idCuenta") int idCuenta);
+
+	// Prestamos de la cuenta por tipo de movimiento
+	@Query("SELECT p FROM Prestamo p WHERE p.cuenta.idCuenta = :idCuenta")
+	List<Prestamo> listPrestamosFromCuenta(@Param("idCuenta") int idCuenta);
 }

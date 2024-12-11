@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.unir.cajerovirtual.modelo.entidades.Cuenta;
 import com.unir.cajerovirtual.modelo.entidades.Movimiento;
+import com.unir.cajerovirtual.modelo.entidades.Prestamo;
 import com.unir.cajerovirtual.modelo.repository.CuentaRepository;
 
 @Repository
@@ -59,6 +60,11 @@ public class CuentaImplJpa implements CuentaDao {
 	@Override
 	public List<Cuenta> getAllCuentasNotme(int idCuenta) {
 		return cuentaRepository.getAllCuentasNotme(idCuenta);
+	}
+
+	@Override
+	public List<Prestamo> ListPrestamosFromCuenta(int idCuenta) {
+		return cuentaRepository.listPrestamosFromCuenta(idCuenta);
 	}
 
 }

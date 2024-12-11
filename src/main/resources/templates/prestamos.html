@@ -15,22 +15,11 @@
 		<div class="container">
 			<!-- Panel de Administración -->
 			<div class="panel">
-				<!-- Titulo y mensajes flash -->
+				<!-- Título y mensajes flash -->
 				<div>
-					<div>
-						<h2>Cajero Virtual</h2>
-						<p>
-							<b>Nº de Cuenta:</b> <span th:text="${objCuenta.idCuenta}"></span>
-						</p>
-						<p>
-							<b>Saldo cuenta:</b>
-							<span th:text="${objCuenta.saldo}  + ' €'"></span>
-						</p>
-						<p>
-							<b>Tipo de cuenta:</b>
-							<span th:text="${objCuenta.tipoCuenta}"></span>
-						</p>
-					</div>
+					<h2
+					th:text="'Todos los Préstamos de la cuenta: ' + ${objCuenta.IdCuenta}"
+					></h2>
 					<!-- Mensaje Flash -->
 					<div
 						th:if="${mensajeOk}"
@@ -43,9 +32,9 @@
 						th:text="'❌&nbsp;&nbsp;' + ${mensajeKo}"
 					></div>
 				</div>
-
-				<!-- Botonera de administración -->
+				
 				<div class="button-group">
+					<button th:onclick="'location.href=\'' + @{/index} + '\''">◀︎</button>
 					<button
 						th:onclick="'location.href=\'' + @{/movimientos/ingresar} + '\''"
 					>
@@ -64,35 +53,51 @@
 					<button th:onclick="'location.href=\'' + @{/verMovimientos} + '\''">
 						Ver Movimientos
 					</button>
-					<button th:onclick="'location.href=\'' + @{/verPrestamos} + '\''">
-						Ver Préstamos
-					</button>
 					<button th:onclick="'location.href=\'' + @{/exit} + '\''">
 						Salir
 					</button>
 				</div>
 			</div>
+			
+			<!-- Gestión de Préstamos -->
+			<div class="panel button-group">
+				<button th:onclick="'location.href=\'' + @{/prestamos/crear} + '\''">
+					Solicitar Prestamo
+				</button>
+			</div>
 
-			<!-- Tabla de Movimientos -->
+			<!-- Tabla de Préstamos -->
 			<table>
 				<thead>
 					<tr>
-						<th>Fecha</th>
-						<th>Importe</th>
-						<th>Tipo de operación</th>
+						<th>Fecha del Préstamo</th>
+						<th>Descripción</th>
+						<th>Cantidad del Préstamo (€)</th>
+						<th>Tasa de Interés Anual (%)</th>
+						<th>Plazo en Meses</th>
+						<th>Tipo de Cuota</th>
+						<th>Cancelar</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- Datos en la tabla -->
-					<tr
-						th:each="objMovimiento : ${listaMovimientos}"
-						th:classappend="${objMovimiento.isIngreso()} ? 'ingreso' : 'extraccion'"
-					>
+					<tr th:each="objprestamo : ${listaPrestamos}">
 						<td
-							th:text="${#dates.format(objMovimiento.fecha,'dd-MM-yyyy HH:mm:ss')}"
+							th:text="${#dates.format(objprestamo.fechaPrestamo,'dd-MM-yyyy')}"
 						></td>
-						<td th:text="${objMovimiento.cantidad} + ' €'"></td>
-						<td th:text="${objMovimiento.operacion}"></td>
+						<td th:text="${objprestamo.descripcion}"></td>
+						<td th:text="${objprestamo.cantidadPrestamo} + ' €'"></td>
+						<td th:text="${objprestamo.tasaInteresAnual} + ' %'"></td>
+						<td th:text="${objprestamo.plazoMeses}"></td>
+						<td th:text="${objprestamo.tipoCuota}"></td>
+						<td>
+							<a
+								th:href="@{/prestamos/borrar/{idPrestamo}(idPrestamo=${objprestamo.idPrestamo})}"
+								class="cancelar"
+							>
+								<img th:src="@{/img/cancelar.png}" alt="Cancelar" />
+							</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

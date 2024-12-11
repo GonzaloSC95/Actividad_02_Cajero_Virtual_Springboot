@@ -28,8 +28,7 @@
 						th:if="${mensajeKo}"
 						class="flash-message-ko"
 						th:text="'❌&nbsp;&nbsp;' + ${mensajeKo}"
-					>
-				</div>
+					></div>
 				</div>
 
 				<!-- Botonera de administración -->
@@ -48,6 +47,9 @@
 					<button th:onclick="'location.href=\'' + @{/verMovimientos} + '\''">
 						Ver Movimientos
 					</button>
+					<button th:onclick="'location.href=\'' + @{/verPrestamos} + '\''">
+						Ver Préstamos
+					</button>
 					<button th:onclick="'location.href=\'' + @{/exit} + '\''">
 						Salir
 					</button>
@@ -63,7 +65,10 @@
 				<table class="detalle">
 					<thead>
 						<tr>
-							<th colspan="2" th:text="'Saldo actual: ' + ${session.objCuenta.saldo} + ' €'"></th>
+							<th
+								colspan="2"
+								th:text="'Saldo actual: ' + ${session.objCuenta.saldo} + ' €'"
+							></th>
 						</tr>
 					</thead>
 					<tbody>

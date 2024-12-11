@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.unir.cajerovirtual.modelo.entidades.Cuenta;
 import com.unir.cajerovirtual.modelo.entidades.Movimiento;
+import com.unir.cajerovirtual.modelo.entidades.Prestamo;
 
 public interface CuentaDao {
 
@@ -27,5 +28,8 @@ public interface CuentaDao {
 
 	// Todas las cuentas menos la de la sesión
 	List<Cuenta> getAllCuentasNotme(int idCuenta);
+	
+	// Movimientos de la cuenta por tipo de movimiento
+	List<Prestamo> ListPrestamosFromCuenta(int idCuenta);
 
 }

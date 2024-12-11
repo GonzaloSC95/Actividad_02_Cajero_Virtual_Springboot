@@ -17,12 +17,12 @@
 			<div class="panel">
 				<!-- Titulo y mensajes flash -->
 				<div>
-					<h2>Extraer Dinero</h2>
+					<h2>Solicitar un préstamo</h2>
 					<!-- Mensaje Flash -->
 					<div
 						th:if="${mensajeOk}"
 						class="flash-message-ok"
-						th:text="'💸&nbsp;&nbsp;' + ${mensajeOk}"
+						th:text="'💰&nbsp;&nbsp;' + ${mensajeOk}"
 					></div>
 					<div
 						th:if="${mensajeKo}"
@@ -35,9 +35,9 @@
 				<div class="button-group">
 					<button th:onclick="'location.href=\'' + @{/index} + '\''">◀︎</button>
 					<button
-						th:onclick="'location.href=\'' + @{/movimientos/ingresar} + '\''"
+						th:onclick="'location.href=\'' + @{/movimientos/extraer} + '\''"
 					>
-						Ingresar
+						Extraer
 					</button>
 					<button
 						th:onclick="'location.href=\'' + @{/movimientos/transferencia} + '\''"
@@ -58,8 +58,8 @@
 
 			<!-- Formulario de alta -->
 			<form
-				th:action="@{/movimientos/extraer}"
-				th:object="${objMovimiento}"
+				th:action="@{/prestamos/crear}"
+				th:object="${objprestamo}"
 				method="post"
 			>
 				<table class="detalle">
@@ -67,47 +67,79 @@
 						<tr>
 							<th
 								colspan="2"
-								th:text="'Saldo actual: ' + ${session.objCuenta.saldo} + ' €'"
+								th:text="'Saldo de la cuenta solicitante: ' + ${session.objCuenta.saldo} + ' €'"
 							></th>
 						</tr>
 					</thead>
 					<tbody>
 						<!-- Datos en la tabla -->
 						<tr>
-							<td>Fecha del Movimiento</td>
+							<td>Nº de la cuenta solicitante</td>
 							<td>
-								<input type="datetime-local" th:field="*{fecha}" readonly />
-							</td>
-						</tr>
-						<tr>
-							<td>Tipo de movimiento</td>
-							<td>
-								<select disabled>
-									<option value="EXTRACCION" selected>EXTRACCION</option>
-									<option value="INGRESO">INGRESO</option>
-								</select>
 								<input
-									type="hidden"
-									th:field="*{operacion}"
-									value="EXTRACCION"
+									th:value="${objprestamo.cuenta}"
+									th:field="*{cuenta}"
+									readonly
 								/>
 							</td>
 						</tr>
 						<tr>
-							<td>Cantidad (€)</td>
+							<td>Descripción</td>
+							<td>
+								<input type="text" th:field="*{descripcion}" required />
+							</td>
+						</tr>
+						<tr>
+							<td>Cantidad del Préstamo (€)</td>
 							<td>
 								<input
 									type="number"
 									step="0.01"
-									th:field="*{cantidad}"
+									th:field="*{cantidadPrestamo}"
 									required
 								/>
+							</td>
+						</tr>
+						<tr>
+							<td>Fecha del Préstamo</td>
+							<td>
+								<input
+									type="datetime-local"
+									th:field="*{fechaPrestamo}"
+									required
+								/>
+							</td>
+						</tr>
+						<tr>
+							<td>Tasa de Interés Anual (%)</td>
+							<td>
+								<input
+									type="number"
+									step="0.01"
+									th:field="*{tasaInteresAnual}"
+									required
+								/>
+							</td>
+						</tr>
+						<tr>
+							<td>Plazo en Meses</td>
+							<td>
+								<input type="number" th:field="*{plazoMeses}" required />
+							</td>
+						</tr>
+						<tr>
+							<td>Tipo de Cuota</td>
+							<td>
+								<select th:field="*{tipoCuota}" required>
+									<option value="FIJO">FIJO</option>
+									<option value="VARIABLE">VARIABLE</option>
+								</select>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<div class="button-group">
-					<button type="submit">Extraer Dinero</button>
+					<button type="submit">Solicitar Préstamo</button>
 				</div>
 			</form>
 		</div>

@@ -47,6 +47,9 @@
 					<button th:onclick="'location.href=\'' + @{/verMovimientos} + '\''">
 						Ver Movimientos
 					</button>
+					<button th:onclick="'location.href=\'' + @{/verPrestamos} + '\''">
+						Ver Préstamos
+					</button>
 					<button th:onclick="'location.href=\'' + @{/exit} + '\''">
 						Salir
 					</button>
@@ -62,7 +65,10 @@
 				<table class="detalle">
 					<thead>
 						<tr>
-							<th colspan="2" th:text="'Saldo actual: ' + ${session.objCuenta.saldo} + ' €'"></th>
+							<th
+								colspan="2"
+								th:text="'Saldo actual: ' + ${session.objCuenta.saldo} + ' €'"
+							></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -77,10 +83,11 @@
 							<td>Cuenta de destino</td>
 							<td>
 								<select th:field="*{cuentaDestinoId}">
-									<option th:each="objCuenta : ${listaCuentasDestino}"
-											th:value="${objCuenta.idCuenta}" 
-											th:text="${objCuenta.idCuenta} + ' - ' + ${objCuenta.tipoCuenta}">
-									</option>
+									<option
+										th:each="objCuenta : ${listaCuentasDestino}"
+										th:value="${objCuenta.idCuenta}"
+										th:text="${objCuenta.idCuenta} + ' - ' + ${objCuenta.tipoCuenta}"
+									></option>
 								</select>
 							</td>
 						</tr>
